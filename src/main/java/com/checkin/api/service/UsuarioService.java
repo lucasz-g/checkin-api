@@ -34,7 +34,7 @@ public class UsuarioService {
     @Transactional
     public Usuario criarUsuario(Usuario usuario) {
         // Validação: Email já existe?
-        if (buscarPorEmail(usuario.getEmail()) != null) {
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             throw new BusinessValidationException(
                     "Email " + usuario.getEmail() + " já está em uso"
             );

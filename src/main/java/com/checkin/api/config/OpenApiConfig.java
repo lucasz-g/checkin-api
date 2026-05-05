@@ -36,10 +36,7 @@ public class OpenApiConfig {
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:8080")
-                                .description("Servidor de Desenvolvimento"),
-                        new Server()
-                                .url("https://api.checkin.com")
-                                .description("Servidor de Produção")
+                                .description("Servidor de Desenvolvimento")
                 ));
     }
 }

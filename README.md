@@ -1,4 +1,4 @@
-_# CheckIn API: Documentação Completa_
+# CheckIn API: Documentação Completa_
 
 ## 1. Visão Geral
 
