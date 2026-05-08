@@ -26,23 +26,6 @@ public class UsuarioController {
     }
 
     /**
-     * POST /api/usuarios - Cria um novo usuário.
-     * 
-     * @param usuario Dados do usuário
-     * @return Usuário criado com status 201
-     */
-    @PostMapping
-    @Operation(summary = "Criar usuário", description = "Registra um novo usuário no sistema")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados inválidos ou email já em uso")
-    })
-    public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody Usuario usuario) {
-        Usuario usuarioCriado = usuarioService.criarUsuario(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioCriado);
-    }
-
-    /**
      * GET /api/usuarios/{id} - Busca um usuário por ID.
      * 
      * @param id ID do usuário

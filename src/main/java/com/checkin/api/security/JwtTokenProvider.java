@@ -46,12 +46,13 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
+        // Factory de tokens JWT, configurada para usar o algoritmo HS256 e a chave secreta
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .setSubject(username) // O subject do token é o email do usuário
+                .setIssuedAt(now) // Data de emissão do token
+                .setExpiration(expiryDate) // Data de expiração do token
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256) // Assina o token com a chave e o algoritmo especificados
+                .compact(); // Gera o token JWT em formato compacto (string)
     }
 
     /**
@@ -61,12 +62,12 @@ public class JwtTokenProvider {
      * @return Nome de usuário extraído do token
      */
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
+        Claims claims = Jwts.parserBuilder() // Configura o parser de tokens JWT, definindo a chave de assinatura para validar o token
+                .setSigningKey(getSigningKey()) // Define a chave de assinatura para validar o token
+                .build() // Constrói o parser
+                .parseClaimsJws(token) // Analisa o token JWT e extrai os claims (informações contidas no token)
+                .getBody(); // Obtém o corpo dos claims, que contém as informações do token, incluindo o subject (email do usuário)
+        return claims.getSubject(); // Retorna o subject do token, que é o email do usuário
     }
 
     /**
