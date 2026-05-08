@@ -1,4 +1,4 @@
-# CheckIn API: Documentação Completa_
+# CheckIn API: Documentação Completa
 
 ## 1. Visão Geral
 
@@ -12,9 +12,6 @@ Enzo Barbeli - RM554272
 
 
 Enzzo Monteiro Barros Silva - RM552616
-
-
-Pedro Chaves - RM553988
 
 
 Felipe Santos - RM554249
