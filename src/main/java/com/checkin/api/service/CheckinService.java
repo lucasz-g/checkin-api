@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * e coordena operações entre repositories.
  */
 @Service
-public class CheckinService {
+public class CheckinService implements CheckinServicePort {
 
     private final CheckinRepository checkinRepository;
     private final UsuarioRepository usuarioRepository;
@@ -44,6 +44,7 @@ public class CheckinService {
      * @throws BusinessValidationException se houver violação de regra de negócio
      */
     @Transactional
+    @Override
     public CheckinResponseDTO criarCheckin(CheckinRequestDTO requestDTO) {
         // Validação: Usuário existe?
         Usuario usuario = usuarioRepository.findById(requestDTO.usuarioId())
@@ -76,6 +77,7 @@ public class CheckinService {
      * @throws ResourceNotFoundException se o usuário não existir
      */
     @Transactional(readOnly = true)
+    @Override
     public List<HistoricoResponseDTO> buscarHistorico(Long usuarioId) {
         // Validação: Usuário existe?
         if (!usuarioRepository.existsById(usuarioId)) {
@@ -108,6 +110,7 @@ public class CheckinService {
      * @throws BusinessValidationException se as datas forem inválidas
      */
     @Transactional(readOnly = true)
+    @Override
     public List<HistoricoResponseDTO> buscarHistoricoPorPeriodo(
             Long usuarioId,
             LocalDateTime dataInicio,

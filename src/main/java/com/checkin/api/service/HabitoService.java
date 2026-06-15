@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * Permite criar, listar e remover hábitos associados a um usuário.
  */
 @Service
-public class HabitoService {
+public class HabitoService implements HabitoServicePort {
     private final HabitoRepository habitoRepository;
     private final UsuarioRepository usuarioRepository;
 
@@ -35,6 +35,7 @@ public class HabitoService {
      * @return DTO de resposta contendo os dados do hábito criado
      */
     @Transactional
+    @Override
     public HabitoResponseDTO criarHabito(Long usuarioId, HabitoRequestDTO requestDTO) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + usuarioId + " não encontrado"));
@@ -54,6 +55,7 @@ public class HabitoService {
      * @return lista de DTOs com os hábitos
      */
     @Transactional(readOnly = true)
+    @Override
     public List<HabitoResponseDTO> listarHabitosPorUsuario(Long usuarioId) {
         if (!usuarioRepository.existsById(usuarioId)) {
             throw new ResourceNotFoundException("Usuário com ID " + usuarioId + " não encontrado");
@@ -69,6 +71,7 @@ public class HabitoService {
      * @param id identificador do hábito
      */
     @Transactional
+    @Override
     public void deletarHabito(Long id) {
         Habito habito = habitoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Hábito com ID " + id + " não encontrado"));

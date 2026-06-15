@@ -3,11 +3,12 @@ package com.checkin.api.controller;
 import com.checkin.api.dto.CheckinRequestDTO;
 import com.checkin.api.dto.CheckinResponseDTO;
 import com.checkin.api.dto.HistoricoResponseDTO;
-import com.checkin.api.service.CheckinService;
+import com.checkin.api.service.CheckinServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,11 +23,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @Tag(name = "Check-in", description = "Endpoints para gerenciamento de check-ins de tarefas")
+@SecurityRequirement(name = "bearerAuth")
 public class CheckinController {
 
-    private final CheckinService checkinService;
+    private final CheckinServicePort checkinService;
 
-    public CheckinController(CheckinService checkinService) {
+    public CheckinController(CheckinServicePort checkinService) {
         this.checkinService = checkinService;
     }
 

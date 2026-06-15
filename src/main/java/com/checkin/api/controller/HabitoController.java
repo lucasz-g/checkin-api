@@ -2,11 +2,12 @@ package com.checkin.api.controller;
 
 import com.checkin.api.dto.HabitoRequestDTO;
 import com.checkin.api.dto.HabitoResponseDTO;
-import com.checkin.api.service.HabitoService;
+import com.checkin.api.service.HabitoServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/habitos")
 @Tag(name = "Hábitos", description = "Endpoints para gerenciamento de hábitos de saúde")
+@SecurityRequirement(name = "bearerAuth")
 public class HabitoController {
 
-    private final HabitoService habitoService;
+    private final HabitoServicePort habitoService;
 
-    public HabitoController(HabitoService habitoService) {
+    public HabitoController(HabitoServicePort habitoService) {
         this.habitoService = habitoService;
     }
 

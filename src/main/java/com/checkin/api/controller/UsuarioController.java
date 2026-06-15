@@ -1,11 +1,12 @@
 package com.checkin.api.controller;
 
 import com.checkin.api.model.Usuario;
-import com.checkin.api.service.UsuarioService;
+import com.checkin.api.service.UsuarioServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/usuarios")
 @Tag(name = "Usuários", description = "Endpoints para gerenciamento de usuários")
+@SecurityRequirement(name = "bearerAuth")
 public class UsuarioController {
 
-    private final UsuarioService usuarioService;
+    private final UsuarioServicePort usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioServicePort usuarioService) {
         this.usuarioService = usuarioService;
     }
 

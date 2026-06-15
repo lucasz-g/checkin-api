@@ -6,7 +6,7 @@ import com.checkin.api.dto.RegisterRequestDTO;
 import com.checkin.api.model.Usuario;
 import com.checkin.api.model.enums.Role;
 import com.checkin.api.security.JwtTokenProvider;
-import com.checkin.api.service.UsuarioService;
+import com.checkin.api.service.UsuarioServicePort;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +27,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final UsuarioService usuarioService;
+    private final UsuarioServicePort usuarioService;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     public AuthController(AuthenticationManager authenticationManager,
-                          UsuarioService usuarioService,
+                          UsuarioServicePort usuarioService,
                           PasswordEncoder passwordEncoder,
                           JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;

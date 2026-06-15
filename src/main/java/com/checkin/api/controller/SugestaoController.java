@@ -1,9 +1,10 @@
 package com.checkin.api.controller;
 
 import com.checkin.api.dto.SugestaoResponseDTO;
-import com.checkin.api.service.SugestaoService;
+import com.checkin.api.service.SugestaoServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controlador que expõe um endpoint para obter sugestões de hábitos de saúde.
- * O endpoint consome um serviço externo através do {@link SugestaoService}.
+ * O endpoint consome um serviço externo através do service de sugestões.
  */
 @RestController
 @RequestMapping("/api/sugestoes")
 @Tag(name = "Sugestões", description = "Endpoints para sugestões de hábitos de saúde via API externa")
+@SecurityRequirement(name = "bearerAuth")
 public class SugestaoController {
 
-    private final SugestaoService sugestaoService;
+    private final SugestaoServicePort sugestaoService;
 
-    public SugestaoController(SugestaoService sugestaoService) {
+    public SugestaoController(SugestaoServicePort sugestaoService) {
         this.sugestaoService = sugestaoService;
     }
 

@@ -37,7 +37,7 @@ As principais características desta versão são:
 O projeto está estruturado em pacotes que representam as camadas da arquitetura SOA:
 
 - `com.checkin.api.controller`: Camada de apresentação, responsável por expor os endpoints REST e receber requisições.
-- `com.checkin.api.service`: Camada de serviço, onde reside a lógica de negócio, validações e orquestração das operações.
+- `com.checkin.api.service`: Camada de serviço, onde reside a lógica de negócio, validações e orquestração das operações. Os controllers dependem de contratos como `UsuarioServicePort`, `CheckinServicePort`, `HabitoServicePort` e `SugestaoServicePort`, permitindo polimorfismo, baixo acoplamento e troca de implementação sem alterar a camada web.
 - `com.checkin.api.repository`: Camada de acesso a dados, responsável pela comunicação com o banco de dados através do Spring Data JPA.
 - `com.checkin.api.model`: Contém as entidades JPA que mapeiam as tabelas do banco de dados.
 - `com.checkin.api.dto`: Data Transfer Objects, utilizados para transferir dados entre as camadas e o cliente, evitando a exposição de entidades internas.
@@ -118,7 +118,7 @@ Antes de consumir os demais endpoints protegidos, é necessário registrar‑se 
 
 ### 3.3. Usuários
 
-- **`POST /api/usuarios`**: Cria um novo usuário.
+- A criação de usuários é feita pelo endpoint público **`POST /api/auth/register`**, que criptografa a senha com BCrypt antes de persistir.
 - **`GET /api/usuarios/{id}`**: Busca um usuário por ID.
 - **`GET /api/usuarios`**: Lista todos os usuários.
 - **`PUT /api/usuarios/{id}`**: Atualiza um usuário existente.
@@ -187,6 +187,7 @@ Com a aplicação em execução, acesse a documentação interativa no navegador
 - **URL**: `http://localhost:8080/swagger-ui.html`
 
 Nesta página, você pode visualizar todos os endpoints, seus parâmetros, e testá-los diretamente.
+Para endpoints protegidos, clique em **Authorize** e informe o token no formato `Bearer <token>`.
 
 ### 4.4. Acessando o Console do H2
 
@@ -196,6 +197,16 @@ Para o ambiente de desenvolvimento, você pode acessar o console do banco de dad
 - **JDBC URL**: `jdbc:h2:mem:checkindb`
 - **User Name**: `sa`
 - **Password**: (deixe em branco)
+
+### 4.5. Rodando os Testes
+
+Execute a suíte automatizada com:
+
+```bash
+mvn test
+```
+
+A suíte cobre testes unitários dos services com Mockito e testes de integração com `MockMvc` para registro, login, criptografia de senha, proteção de endpoints sem token e acesso autenticado com JWT.
 
 ## 5. Configuração para Produção
 
@@ -242,3 +253,13 @@ A segurança é um pilar fundamental desta API. Nesta versão as principais medi
 - **Validação de Entrada**: o `CheckinService` mantém o método `validarConteudoDiario` para bloquear padrões comuns de **SQL Injection** e **XSS** no diário de check‑ins.
 - **CORS (Cross‑Origin Resource Sharing)**: configurado para permitir que origens confiáveis (como seu aplicativo móvel) acessem a API. Por padrão, qualquer origem é permitida em desenvolvimento.
 - **Tratamento de Exceções**: o `GlobalExceptionHandler` captura exceções e retorna mensagens padronizadas, incluindo erros de autenticação (credenciais inválidas) com status 401.
+
+## 7. Sprint 4 - SOA e WebServices
+
+Esta versão contempla os principais critérios da Sprint 4:
+
+- **Código limpo e SOLID**: controllers, services e repositories separados por responsabilidade; services expostos por interfaces `*ServicePort`.
+- **Segurança stateless**: Spring Security configurado com `SessionCreationPolicy.STATELESS`, filtro JWT, BCrypt e respostas `401` para endpoints protegidos sem autenticação.
+- **Regras em services**: validações de usuário, check-in, hábitos e fallback da API externa ficam encapsulados na camada de service.
+- **Documentação automática**: SpringDoc/Swagger em `/swagger-ui.html`, com esquema Bearer JWT configurado.
+- **Testes automatizados**: 19 testes cobrindo services e fluxo integrado de autenticação/autorização.

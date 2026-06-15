@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * saudáveis.
  */
 @Service
-public class SugestaoService {
+public class SugestaoService implements SugestaoServicePort {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
@@ -38,6 +38,7 @@ public class SugestaoService {
      *
      * @return DTO contendo a atividade sugerida
      */
+    @Override
     public SugestaoResponseDTO buscarSugestao() {
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(sugestaoApiUrl, String.class);

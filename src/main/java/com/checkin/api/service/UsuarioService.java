@@ -16,7 +16,7 @@ import java.util.List;
  * relacionadas aos usuários.
  */
 @Service
-public class UsuarioService {
+public class UsuarioService implements UsuarioServicePort {
 
     private final UsuarioRepository usuarioRepository;
 
@@ -32,6 +32,7 @@ public class UsuarioService {
      * @throws BusinessValidationException se o email já estiver em uso
      */
     @Transactional
+    @Override
     public Usuario criarUsuario(Usuario usuario) {
         // Validação: Email já existe?
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
@@ -51,6 +52,7 @@ public class UsuarioService {
      * @throws ResourceNotFoundException se o usuário não existir
      */
     @Transactional(readOnly = true)
+    @Override
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -66,6 +68,7 @@ public class UsuarioService {
      * @throws ResourceNotFoundException se o usuário não existir
      */
     @Transactional(readOnly = true)
+    @Override
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException(
@@ -79,6 +82,7 @@ public class UsuarioService {
      * @return Lista de usuários
      */
     @Transactional(readOnly = true)
+    @Override
     public List<Usuario> listarTodos() {
         return usuarioRepository.findAll();
     }
@@ -93,6 +97,7 @@ public class UsuarioService {
      * @throws BusinessValidationException se o email já estiver em uso por outro usuário
      */
     @Transactional
+    @Override
     public Usuario atualizarUsuario(Long id, Usuario usuarioAtualizado) {
         Usuario usuario = buscarPorId(id);
 
@@ -118,6 +123,7 @@ public class UsuarioService {
      * @throws ResourceNotFoundException se o usuário não existir
      */
     @Transactional
+    @Override
     public void deletarUsuario(Long id) {
         Usuario usuario = buscarPorId(id);
         usuarioRepository.delete(usuario);
