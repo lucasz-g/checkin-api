@@ -1,5 +1,10 @@
 # CheckIn API: Documentação Completa
 
+
+## 🚀 SPRINT 4 - TESTES E QUALIDADE DE SOFTWARE 
+- **Plano de Testes Manuais (Azure Boards):** [https://dev.azure.com/Challenge-Quality-Assurance-3ESPS-2025/Challenge_CarePlus_HealthDiary-v.2]
+- **Evidência de Testes Automatizados (Vídeo):** [https://youtu.be/Yj6xReq_wMU]
+
 ## 1. Visão Geral
 
 A **CheckIn API** evoluiu ao longo da disciplina de **Arquitetura Orientada a Serviços (SOA)**. A primeira entrega consistia em uma aplicação RESTful para gerenciar check‑ins de tarefas e o histórico de evolução dos usuários. Nesta segunda entrega ampliamos o escopo adicionando **autenticação baseada em JWT**, um módulo de **hábitos de saúde** e o consumo de um **serviço externo** para sugestões de hábitos. A estrutura continua separada em camadas (Controller, Service e Repository) e preserva as boas práticas de modularidade e manutenção. O foco agora vai além da persistência de dados: promove segurança, engajamento e bem‑estar dos usuários.
