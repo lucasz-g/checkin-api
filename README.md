@@ -4,21 +4,6 @@
 
 A **CheckIn API** evoluiu ao longo da disciplina de **Arquitetura Orientada a Serviços (SOA)**. A primeira entrega consistia em uma aplicação RESTful para gerenciar check‑ins de tarefas e o histórico de evolução dos usuários. Nesta segunda entrega ampliamos o escopo adicionando **autenticação baseada em JWT**, um módulo de **hábitos de saúde** e o consumo de um **serviço externo** para sugestões de hábitos. A estrutura continua separada em camadas (Controller, Service e Repository) e preserva as boas práticas de modularidade e manutenção. O foco agora vai além da persistência de dados: promove segurança, engajamento e bem‑estar dos usuários.
 
-### Integrantes
-Lucas Garcia - RM554070
-
-
-Enzo Barbeli - RM554272
-
-
-Enzzo Monteiro Barros Silva - RM552616
-
-
-Felipe Santos - RM554249
-
-
-Iago Diniz - 553776
-
 ### 1.1. Principais Características
 
 As principais características desta versão são:
